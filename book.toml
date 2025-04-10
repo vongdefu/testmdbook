@@ -1,0 +1,20 @@
+[book]
+authors = []
+language = "en"
+multilingual = false
+src = "src"
+[output.html]
+mathjax-support = true
+additional-css = ["theme/pagetoc.css"]
+additional-js = ["theme/pagetoc.js"]
+
+[output.html.fold]
+enable = true    # 是否折叠左侧边栏
+level = 0        # the depth to start folding
+
+[output.html.playground]
+editable = true         # allows editing the source code
+copyable = true          # include the copy button for copying code snippets
+copy-js = true           # includes the JavaScript for the code editor
+line-numbers = true     # displays line numbers for editable code
+runnable = false          # displays a run button for rust code
