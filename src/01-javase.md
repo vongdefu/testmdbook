@@ -1,4 +1,4 @@
-# 面渣逆袭-Java SE
+# 面渣-Java SE
 
 ## Java 概述
 

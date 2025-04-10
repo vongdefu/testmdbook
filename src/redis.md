@@ -16,6 +16,30 @@ head:
 
 ## 基础
 
+
+```rust
+// nop-preprocessors.rs
+{{#include test.md}}
+```
+
+<details>
+<summary>隐藏代码块</summary>
+
+
+{{#include os.md}}
+
+</details>
+
+<div class="warning">
+
+This is a bad thing that you should pay attention to.
+
+Warning blocks should be used sparingly in documentation, to avoid "warning
+fatigue," where people are trained to ignore them because they usually don't
+matter for what they're doing.
+
+</div>
+
 ### 1.说说什么是 Redis?
 
 Redis 是 **R**emote **D**ictionary **S**ervice 三个单词中加粗字母的组合，是一种基于键值对的 NoSQL 数据库。

@@ -1,19 +1,4 @@
----
-title: Java面试题之Java集合框架篇（Java容器篇），29道Java集合框架八股文（7千字38张手绘图），面渣逆袭必看👍
-shortTitle: 面渣逆袭-Java集合框架
-author: 三分恶
-date: 2024-10-14
-category:
-  - 面渣逆袭
-tag:
-  - 面渣逆袭
-description: 下载次数超 1 万次，7200 字 38 张手绘图，详解 29 道 Java 集合框架面试高频题（让天下没有难背的八股），面渣背会这些 Java 容器八股文，这次吊打面试官，我觉得稳了（手动 dog）。
-head:
-  - - meta
-    - name: keywords
-      content: Java,集合框架,Java容器,List,Map,Set,面试题,八股文,java
----
-
+# 面渣-Java集合框架
 
 ![面渣逆袭集合框架篇封面图](https://cdn.tobebetterjavaer.com/stutymore/collection-mianzhanixi-collection.jpg)
 
