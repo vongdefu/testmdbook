@@ -1,9 +1,5 @@
 # SUMMARY
 
-- [chapter_1](./chapter_1.md)
-  - [test](./test.md)
-    - [test2](./test2.md)
-
 # CS基础
 
 - [操作系统](./os.md)
@@ -13,9 +9,6 @@
 
 # Java
 
-- [javase](./javase.md)
-- [javathread](./javathread.md)
-- [collection](./collection.md)
 - [jvm](./jvm.md)
 
 # 框架
