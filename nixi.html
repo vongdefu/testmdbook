@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>nixi</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/pagetoc.css">
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <hr />
+<p>title: 面渣逆袭必看，面试题八股文Java基础、Java 集合框架、Java 并发编程、JVM、Spring、Redis、MyBatis、MySQL、操作系统、计算机网络、RocketMQ、分布式、微服务、设计模式、Linux👍
+shortTitle: 面渣逆袭
+description: 16 个大的主题，共有 30 多万字，400+张手绘图，可以说是诚意满满。有球友在做面试官的时候偷偷打开面渣逆袭，然后随便挑点问题问。还有球友付费就是为了交面渣逆袭的学费，虽然我不敢说这是市面上最好的八股，但确实对大家应该是有帮助的。
+category:</p>
+<ul>
+<li>面渣逆袭
+tag:</li>
+<li>面渣逆袭
+head:</li>
+<li>
+<ul>
+<li>meta</li>
+<li>name: keywords
+content: Java面试题,JavaSE面试题,Java基础面试题,Java集合框架面试题,Java容器面试题,Java虚拟机面试题,JVM面试题,Spring面试题,Redis面试题,MyBatis面试题,MySQL面试题,操作系统面试题,OS面试题,计算机网络面试题,RocketMQ面试题,面试题,八股文,java,springboot,spring,jvm,redis,mybatis,mysql,操作系统,计算机网络,RocketMQ,分布式,微服务,设计模式,Linux</li>
+</ul>
+</li>
+</ul>
+<hr />
+<p>大家好，我是二哥呀，今天给大家隆重推荐一下星球嘉宾三分恶的面渣逆袭，一份高质量的面试题八股文，涵盖了<code>Java基础</code>、<code>Java集合</code>、<code>Java并发</code>、<code>JVM</code>、<code>Spring</code>、<code>MyBatis</code>、<code>计算机网络</code>、<code>操作系统</code>、<code>MySQL</code>、<code>Redis</code>、<code>RocketMQ</code>、<code>分布式</code>、微服务、设计模式、Linux 等 16 个大的主题，共有 30 多万字，400+张手绘图，可以说是诚意满满。</p>
+<p>有球友在做面试官的时候偷偷打开面渣逆袭，然后随便挑点问题问。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/stutymore/nixi-20240802112009.png" alt="做面试官的球友通过面渣逆袭来考察求职者" /></p>
+<p>还有球友付费就是为了交面渣逆袭的学费，虽然我不敢说这是市面上最好的八股，但确实对大家应该是有帮助的。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/stutymore/nixi-20240802112329.png" alt="求职的同学靠面渣逆袭吊打面试官，闭环了" /></p>
+<blockquote>
+<p>下面我将用三弟来代替作者三分恶滴滴，方便行文逻辑。</p>
+</blockquote>
+<h2 id="内容体系全面"><a class="header" href="#内容体系全面">内容体系全面</a></h2>
+<p>话不多说，先给大家看看面渣的内容结构：</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-a1c872c8-ab8e-454f-b8ab-7bb3d1cab5f0.jpg" alt="面渣逆袭一共 6 大部分" /></p>
+<p>而且内容不是杂乱无章的，每一部分都是循序渐进，由浅入深，看看目录就知道了：</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene//nixi-75f87853-ca11-4e6e-ab3f-ba8335a24783.png" alt="Java 篇（Java 基础、并发编程、JVM）" /></p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene//nixi-fda2401a-1162-438d-8fe8-19876224d2b1.png" alt="Spring+MySQL+Redis" /></p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene//nixi-3b3d55c6-7b18-4b0a-83b4-5a8535461ddb.png" alt="操作系统+计算机网络+RocketMQ" /></p>
+<p>成体系的知识才是最有价值的，你不仅可以把面渣当做一本面试题解，还可以当作学习指南，带着面渣中的问题，相信你学习起来也会事半功倍。</p>
+<h2 id="图文并貌深入浅出"><a class="header" href="#图文并貌深入浅出">图文并貌，深入浅出</a></h2>
+<p>大家都知道，图比文字更好理解、更好记忆，看过面渣逆袭系列的同学应该都会有这个感受，每个主题经常是三十问、五十图，基本上做到了图比问题多，能用图说话就使劲肝图。</p>
+<p>比如这张 HTTPS 的工作流程图，足足画了一个多小时：</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-a037df66-a8ad-4494-aa52-2df6bc9c1c1f.jpg" alt="三分恶面渣逆袭：HTTPS" /></p>
+<p>三弟还喜欢用一些有意思的比喻去讲解技术，努力让枯燥的知识点变得生动起来。比如，经典的四次挥手，很多同学看完，直呼“满脑子都是分手”：</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-8ec371eb-9f68-44ad-8d94-0ddbeae72b48.jpg" alt="三分恶面渣逆袭： 四次挥手" /></p>
+<p>比如，三弟拿人的一生，比喻 Spring Bean 生命周期，有人说“泪目”：</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-e6b9fe59-122e-47f2-b605-0da04d108d11.jpg" alt="三分恶面渣逆袭：bean 的一生" /></p>
+<p>还有，“占着茅坑不拉屎”，“憋急了没坑位”来比喻内存泄露和内存溢出：</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-c4e81c79-c91e-4111-9d1b-836174eb1b36.jpg" alt="三分恶面渣逆袭：内存泄露和内存溢出" /></p>
+<p>……</p>
+<p>这样的例子还有很多，我就不再一一举例了。</p>
+<h2 id="持续迭代不断完善"><a class="header" href="#持续迭代不断完善">持续迭代，不断完善</a></h2>
+<p>这份八股不是一揽子买卖，而是像一个产品一样，既持续修复 bug、优化体验，又不断迭代新功能。</p>
+<p>二哥也会在此基础上进行优化和更新，包括：</p>
+<ul>
+<li>“迭代新的功能”——分布式、微服务、Dubbo、Elasticsearch、数据结构与算法、系统设计……</li>
+<li>“修复现有的小 Bug”——随时接受大家的反馈，精益求精，不断打磨内容……</li>
+<li>“优化用户体验”——优化答案、添加更多图解，后面还会推出突击版。</li>
+</ul>
+<h2 id="在线版阅读"><a class="header" href="#在线版阅读">在线版阅读</a></h2>
+<p>硬核理解版八股文，包括 Java 基础（JavaSE）、Java 集合框架、Java 并发编程（Java 多线程）、Java 虚拟机（JVM）、Spring、MySQL、Redis、MyBatis、操作系统、计算机网络、RocketMQ、分布式、微服务、设计模式等等，助你拿到心仪 offer！</p>
+<ul>
+<li><a href="/sidebar/sanfene/javase.html">面渣逆袭（Java 基础篇面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/collection.html">面渣逆袭（Java 集合框架篇面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/javathread.html">面渣逆袭（Java 并发编程篇面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/jvm.html">面渣逆袭（Java 虚拟机篇面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/spring.html">面渣逆袭（Spring 面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/mysql.html">面渣逆袭（MySQL 面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/redis.html">面渣逆袭（Redis 面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/mybatis.html">面渣逆袭（MyBatis 面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/os.html">面渣逆袭（操作系统面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/network.html">面渣逆袭（计算机网络面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/rocketmq.html">面渣逆袭（RocketMQ 面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/fenbushi.html">面渣逆袭（分布式面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/weifuwu.html">面渣逆袭（微服务面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/shejimoshi.html">面渣逆袭（设计模式面试题八股文）必看 👍</a></li>
+<li><a href="/sidebar/sanfene/linux.html">面渣逆袭（Linux 面试题八股文）必看 👍</a></li>
+</ul>
+<h2 id="pdf-介绍"><a class="header" href="#pdf-介绍">PDF 介绍</a></h2>
+<p>有些同学喜欢打印或者阅读 PDF 版本，这里也安排上了。先带大家预览一下：</p>
+<p>1、Java 基础</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-472ca179-c5f6-4af2-9a06-75dd8902599a.jpg" alt="1、Java 基础" /></p>
+<p>2、Java 集合</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-723dc8ec-c3a8-47ea-96c6-40520b064ffb.jpg" alt="2、Java 集合" /></p>
+<p>3、Java 并发</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-f1beb175-0099-4615-847f-9ea375e391ee.jpg" alt="3、Java 并发" /></p>
+<p>4、JVM</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-ab2a4a0f-9006-4b83-a8c9-56a853829bb5.jpg" alt="4、JVM" /></p>
+<p>5、Spring</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-12c239b3-0b95-414b-b83f-f5a2f46dbde0.jpg" alt="5、Spring" /></p>
+<p>6、MyBatis</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-862defac-32d6-4089-a5dd-e57d114b83b2.jpg" alt="6、MyBatis" /></p>
+<p>7、计算机网络</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-71d6389c-d984-4c02-af74-45038616520f.jpg" alt="7、计算机网络" /></p>
+<p>8、操作系统</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-705651d8-1417-4c26-be5d-3f155f4b3551.jpg" alt="8、操作系统" /></p>
+<p>9、MySQL</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-705acc6c-6554-4c36-a47f-d2c850287126.jpg" alt="9、MySQL" /></p>
+<p>10、Redis</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-b98e0491-72f5-468a-a3a9-b55d8c205a14.jpg" alt="10、Redis" /></p>
+<p>11、RocketMQ</p>
+<p><img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/nice-article/weixin-tuxbgzdtdl-18d350fd-5609-430e-8f7f-8f0848015a30.jpg" alt="11、RocketMQ" /></p>
+<p>12、分布式</p>
+<p><img src="http://cdn.tobebetterjavaer.com/tobebetterjavaer/images/sidebar/sanfene//nixi-cdfba194-459d-4ec6-8b9f-07f6cca4ac80.png" alt="分布式" /></p>
+<p>13、微服务</p>
+<p><img src="https://cdn.tobebetterjavaer.com/stutymore/nixi-20230918213033.png" alt="微服务" /></p>
+<p>由于 PDF 没办法自我更新，所以需要最新版的小伙伴，可以微信搜【<strong>沉默王二</strong>】，或者扫描/长按识别下面的二维码，关注二哥的公众号，回复【<strong>222</strong>】即可拉取最新版本。</p>
+<p>当然了，请允许我的一点点私心，那就是星球的 PDF 版本会比公众号早一个月时间，毕竟星球用户都付费过了，我有必要让他们先享受到一点点福利。相信大家也都能理解，毕竟在线版是免费的，CDN、服务器、域名、OSS 等等都是需要成本的。</p>
+<p>更别说我付出的时间和精力了。</p>
+<div style="text-align: center; margin: 20px 0;">
+    <img src="https://cdn.tobebetterjavaer.com/tobebetterjavaer/images/gongzhonghao.png" alt="微信扫码或者长按识别，或者微信搜索“沉默王二”" style="max-width: 100%; height: auto;  border-radius: 10px;" />
+</div>
+<p>百度网盘、阿里云盘、夸克网盘都可以下载到最新版本，我会第一时间更新上去。</p>
+<p><img src="https://cdn.tobebetterjavaer.com/stutymore/javase-20241230171125.png" alt="回复 222" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="fenbushi.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="fenbushi.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+
+
+    </div>
+    </body>
+</html>
