@@ -55,6 +55,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         headingMap.forEach(({ li }) => li.classList.remove("active"));
-        if (current) current.classList.add("active");
+        if (current) {
+            current.classList.add("active");
+
+            // 滚动浮动目录区域内的当前项进入可视区域
+            const container = toc.querySelector("ul");
+            const rect = current.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            if (rect.top > containerRect.top || rect.bottom < containerRect.bottom) {
+                               
+                current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            }
+        }
     });
 });
