@@ -1,6 +1,6 @@
 # SUMMARY
 
-# CS基础
+# CS 基础
 
 - [操作系统](./os.md)
 - [计算机网络](./network.md)
@@ -9,6 +9,9 @@
 
 # Java
 
+- [java 基础](./01-javase.md)
+- [java 集合](./02-collection.md)
+- [java 线程](./03-javathread.md)
 - [jvm](./jvm.md)
 
 # 框架
@@ -24,7 +27,6 @@
 - [Mybatis](./mybatis.md)
 - [redis](./redis.md)
 - [rocketmq](./rocketmq.md)
-
 
 # 分布式
 
