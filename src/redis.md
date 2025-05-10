@@ -1,44 +1,5 @@
----
-title: Redis面试题，57道Redis八股文（1.9万字97张手绘图），面渣逆袭必看👍
-shortTitle: 面渣逆袭-Redis
-description: 下载次数超 1 万次，1.9 万字 97 张手绘图，详解 57 道 Redis 面试高频题（让天下没有难背的八股），面渣背会这些 Redis 八股文，这次吊打面试官，我觉得稳了（手动 dog）。
-author: 三分恶
-date: 2024-10-31
-category:
-  - 面渣逆袭
-tag:
-  - 面渣逆袭
-head:
-  - - meta
-    - name: keywords
-      content: Redis面试题,Redis,八股文,面试题
----
-
 ## 基础
 
-
-```rust
-// nop-preprocessors.rs
-{{#include test.md}}
-```
-
-<details>
-<summary>隐藏代码块</summary>
-
-
-{{#include os.md}}
-
-</details>
-
-<div class="warning">
-
-This is a bad thing that you should pay attention to.
-
-Warning blocks should be used sparingly in documentation, to avoid "warning
-fatigue," where people are trained to ignore them because they usually don't
-matter for what they're doing.
-
-</div>
 
 ### 1.说说什么是 Redis?
 
@@ -50,7 +11,7 @@ Redis 是 **R**emote **D**ictionary **S**ervice 三个单词中加粗字母的�
 
 不仅如此，Redis 还可以将内存数据持久化到硬盘上，这样在发生类似断电或者机器故障的时候，内存中的数据并不会“丢失”。
 
-除此之外，Redis 还提供了**键过期**、**发布订阅**、**事务**、**流水线**、**Lua 脚本**、**多种高可用高可扩的部署模式**等附加功能，是互联网技术领域中使用最广泛的缓存中间件。
+除此之外，Redis 还提供了**键过期**、**发布订阅**、**事务**、**流水线**、**Lua 脚本**、**多种高可用+高可扩的部署模式**等附加功能，是互联网技术领域中使用最广泛的缓存中间件。
 
 #### Redis 和 MySQL 的区别？
 
